@@ -39,7 +39,7 @@ umd_fees_pct <- umd_fees |>  mutate(pct_change=(`Fall 2024`- `Fall 2021`)/`Fall 
 
 Write a few sentences about what you found in the data. What's the story here?
 
-University of Maryland students' bill is steeper over the past three years. A relatively-new category called Student Sustainability and the university's bus system are costing students more. 
+University of Maryland students' bill is steeper over the past three years. A relatively-new category called Student Sustainability and the university's bus system are costing students more. !
 
 
 
