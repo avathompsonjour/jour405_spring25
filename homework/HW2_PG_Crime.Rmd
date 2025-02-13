@@ -17,7 +17,7 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data and Describe It
 
 ```{r}
-pg_crime <- read.csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv")
+pg_crime <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv")
 ```
 ### Task 3: Describe the Data
 
@@ -30,29 +30,9 @@ The number of reported "accidents" steadily increased throughout the year.Howeve
 Calculate the total number of incidents for each category using `mutate()`, calling the new column `total_incidents Then calculate the average number of incidents per month for each category of crime, calling the new column `average_incidents`. Assign the result to a new dataframe called `pg_crime_averages`.
 
 ```{r}
-library(tidyverse)
-'ACCIDENT' <- 435+430+429+488+529+463+462+497+465+569+500+509
-'ACCIDENT WITH IMPOUND' <-316+283+299+303+353+334+315+313+347+331+310+345
-'ASSAULT' <- 71+58+71+74+86+75+62+70+75+73+73+63
-'ASSAULT  SHOOTING' <- sum(13,10,12,20,15,21,21,14,21,16,20)
-'ASSAULT  WEAPON' <- sum(23,18,12,20,8,14,16,14,16,10,10,13)
-'AUTO  STOLEN'<- sum(393, 412,335,279,394,442,421,420,426,462,420,386)
-'AUTO  STOLEN & RECOVERED' <- sum(36,39,23,38,48,48,58,37,36,44,33,47)
-'B & E  COMMERCIAL' <- 36+31+29+30+48+48+41+56+37+53+52+75
-'B & E  OTHER' <- 5+7+6+11+10+4+5+6+6+10+9+6
-'B & E  RESIDENTIAL' <- 38+35+27+52+41+42+30+27+32+46+39+35
-'HOMICIDE' <- 5+4+7+5+6+8+7+7+5+3+7+6
-'ROBBERY  COMMERCIAL' <- 25+33+19+26+23+17+20+29+14+12+12+12
-'ROBBERY  OTHER' <- 62+52+49+52+42+63+36+46+70+57+71+59
-'ROBBERY  RESIDENTIAL' <- 5+1+4+2+3+3+3+2+2+3
-'ROBBERY  VEHICLE' <- 23+42+16+21+31+31+41+21+15+21+24+13
-'SEX OFFENSE' <- 13+5+14+9+11+14+15+10+13+16+14+13
-'THEFT' <- 305+253+258+262+285+280+279+260+281+363+293+290
-'THEFT FROM AUTO' <- 429+322+348+323+375+395+449+408+388+407+450+409
-
-'total_incidents' <- 5776+3849+851+183+174+4790+487+536+85+444+70+242+659+28+299+147+3409+4703
-'average_incidents' <- 26732/12
-```
+pg_crime_averages <- pg_crime |> 
+  mutate(total_incidents = Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov + Dec) |> 
+  mutate(average_incidents = total_incidents/12)
 
 ```
 
@@ -70,13 +50,11 @@ Theft, accident, accident with impound, theft from auto have the highest rates.
 One theory about crime is that it is more likely to occur in the summer months. Test this theory by creating three new columns using `mutate()` that calculate the percentage change compared to the average for each category of crime for the months of June, July, and August. Call the new columns `june_change`, `july_change`, and `august_change`. Assign the result to a new dataframe called `summer_crime_averages`.
 
 ```{r}
-'august_change' <-2220
-'july_change' <- 2182
-'june_change' <- 2252
+summer_crime_averages <- pg_crime_averages |>  
+  mutate(june_change = ((Jun- average_incidents)/average_incidents * 100)) |>  
+  
 
-pg_crime |> mutate(pct_change=(`june_change`- `august_change`)/`august change` * 100)
-
-
+```
 
 ### Task 7: Describe the Summer Crime Averages
 
