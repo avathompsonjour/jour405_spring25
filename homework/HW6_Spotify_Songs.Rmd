@@ -7,18 +7,22 @@ In this assignment, you will be working with a dataset of songs played on Spotif
 ### Task 1: Load the tidyverse
 
 ```{r}
+library(tidyverse)
 ```
 
 ### Task 2: Load the Spotify Songs dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv
 
 ```{r}
+spotify_songs <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv")
 ```
 
 ### Task 3: Calculate the mean and standard deviation of the danceability scores
 
 Write code to calculate the mean standard deviation of the danceability scores in the Spotify dataset. Display those.
 
+
 ```{r}
+spotify_songs |> summarize(mean = mean(count), sd = sd(count))
 ```
 
 ### Task 4: Create a histogram of the danceability scores
@@ -26,6 +30,12 @@ Write code to calculate the mean standard deviation of the danceability scores i
 Write code to create a histogram of the danceability scores in the Spotify dataset, based on the example we did in class.
 
 ```{r}
+spotify_songs |> 
+  ggplot() +
+  geom_histogram(aes(x = count), binwidth = 2)+
+  geom_vline(aes(xintercept = mean(count)), color = "red" ,linetype = "dashed" , size=1) +
+  geom_vline(aes(xintercept = sd(count)), color = "blue" ,linetype = "dashed" , size=1) +
+  geom_vline(aes(xintercept = mean(count)+sd(count)), color = "blue" ,linetype = "dashed" , size=1) 
 ```
 
 ### Task 5: Add a line to the histogram for the mean danceability score
