@@ -34,9 +34,9 @@ hot_murders |> summarize(correlation = cor(murders, temperature, method = "pears
 ```{r}
 hot_murders |> 
   ggplot() +
-  geom_point(aes(x=temperature, y=murders))
-  geom_smooth(aes(x=temperature, y=murders) method ='lm")
-  geom_text(aes(label = "month")) 
+  geom_point(aes(x=temperature, y=murders)) +
+  geom_smooth(aes(x=temperature, y=murders), method ="lm") +
+  geom_text(aes(x=temperature, y=murders, label=month)) 
 ```
 
 
