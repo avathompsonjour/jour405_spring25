@@ -26,7 +26,7 @@ hot_murders <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/
 
 ### Task 3: Use `summarize()` and the `cor()` function to calculate the correlation between murders and temperature, using the pearson method.
 ```{r}
-hot_murders |> summarize(correlation = cor(murders, temperature, method = "pearson"))
+hot_murders |> summarize(correlation = cor(GDP, , method = "pearson"))
 ```
 
 
