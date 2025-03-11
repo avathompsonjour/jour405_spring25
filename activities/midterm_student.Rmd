@@ -1,12 +1,15 @@
 # JOUR405: Statistics for Journalists
 ## Midterm Exam - Spring 2025
 
-Name: YOUR NAME HERE
+Name: Ava Thompson
 
 For this exam, you'll analyze several datasets using R and the statistical concepts we've covered in class. Load the tidyverse before beginning, then complete each task. Write your code in the provided blocks and answer the questions in complete sentences. Start by loading the tidyverse and any other libraries you think you might need.
+```{r}
+library(tidyverse)
 
-```r
 ```
+
+
 
 ## Part 1: Restaurant Health Inspections (15 points)
 
@@ -18,9 +21,12 @@ You want to understand how restaurants in Montgomery County are performing on he
 3. Write 2-3 sentences interpreting what the standard deviation and histogram tell us about the distribution of compliance scores. What would be newsworthy about this distribution? What's the story here? (5 points).
 
 ```{r}
-
-
+inspections_moco <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/montco_inspections.csv")
+inspections_moco |>  summarize(mean = mean(compliance_score), sd = sd(compliance_score))
+hist(inspections_moco$compliance_score)
+abline(v = mean(inspections_moco$compliance_score))
 ```
+Over 8000 restraunts in Montgomery County hit the perfect compliance score. However... some are lagging behind on their efforts to meet county standards. 
 
 ## Part 2: High School Athletics (25 points)
 
@@ -33,9 +39,17 @@ You are reporting a story about high school sports participation in Maryland and
 4. In 2-3 sentences, explain what the correlation coefficient and scatterplot reveal about equity in Maryland high school sports participation. How do you interpret the school districts that are below the line vs those that are above? Which school districts are most worth examining further, and why? (10 points)
 
 ```{r}
-
+mdsports_participation <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_hs_participation.csv")
+mdsports_participation |> summarize(correlation = cor(boys,girls, method = "pearson"))
+total <- mdsports_participation |> summarize(total= boys+girls)
+girls_pct <- mdsports_participation |> mutate(girls/total)
+mdsports_participation |> 
+ ggplot() +
+  geom_point(aes(x=girls, y=boys)) +
+  geom_smooth(aes(x=girls, y=boys), method ="lm") +
+  geom_text(aes(x=girls, y=boys, label=district)) 
 ```
-
+There is an almost positive one correlation coefficent in the scatterplot, making almost a positive linear relationship between boys and girls in maryland high school sports. 
 
 ## Part 3: Public Transit Ridership (20 points)
 
@@ -48,9 +62,15 @@ You are investigating public transit ridership in the Washington, D.C. area and 
 
 
 ```{r}
+dc_commuters <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/wmata_daily.csv")
+dc_commuters |> summarize(bus_mean = mean(bus), bus_sd = sd(bus))
+dc_commuters |> summarize(rail_mean = mean(rail), rail_sd = sd(rail))
+sample_50 <- dc_commuters |> sample_n(50)
+sample_50 |>  summarize(fiftybus_mean = mean(bus), fiftybus_sd = sd(bus))
+sample_50 |>  summarize(fiftyrail_mean = mean(rail), fiftyrail_sd = sd(rail))
 
 ```
-
+Even in a smaller sample, more Washingtonians are taking the rail/metro system over the bus. 
 
 
 ## Part 4: Maryland Car Theft Rates (20 points)
@@ -64,8 +84,14 @@ Your editor has assigned you a story about car thefts in Maryland and wants you 
 
 
 ```{r}
-
+cartheft <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_car_thefts.csv")
+countytheft <- cartheft |> mutate(`2023`/population)
+median_theft <- cartheft |> summarize(median=median(`2023`))
+total_theft <- cartheft |> summarize(sum(`2023`))
+total_theft_pct <- cartheft |> summarize((sum(`2023`))/sum(population))
+county_pct <- cartheft |> summarize(`2023`/population)
 ```
+One county in Maryland have a higher rate than the state average. The state average is 0.03% but that county in Maryland have a 1% car theft rate, driving up the state average. 
 
 ## Part 5: Data Analysis Scenario (20 points)
 
@@ -73,8 +99,11 @@ You receive a tip that local emergency response times have gotten significantly 
 
 Write 3-4 sentences (no code!) explaining:
 1. What statistical measures would you calculate to verify this claim? (10 points)
+I would find the mean, standard deviation and the median. Median is more resistant to outliers compared to the mean.
 2. What visualizations would help readers understand the trends? (5 points)
+I would do a scatterplot showing each month the average or median response time. 
 3. What additional context or data would you need to make this a complete story? (5 points)
+Have there police officers or firefighters quitting more frequently, are fire stations closing, are the emergencies happening farther and father away from where the fire stations are?
 
 
 ### Submission Instructions
