@@ -1,0 +1,16 @@
+---
+title: "HW15FINALPROJECT"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+rat_rating <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pubhtml?gid=0&single=true")
+```
+Rat rating is from Orkin ("https://www.orkin.com/press-room/top-rodent-infested-cities-2024") from 2020-2024. 
+However, I've been trying to find the budgets for public works for each of the top cities. However for smaller cities that are growing, their websties are difficult to navigate and I've looked for budgets under public works and/or streets and sanitation. For one year, I find a number for streets and sans but another year I can only find public works, making the data wacky. 
+https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pubhtml?gid=1409890218&single=true
+
