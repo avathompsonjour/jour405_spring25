@@ -1,0 +1,51 @@
+---
+title: "TheTestsYouCouldRun"
+output: html_document
+---
+For my project: Rat rating is from Orkin ("https://www.orkin.com/press-room/top-rodent-infested-cities-2024") from 2020-2024. 
+However, I've been trying to find the budgets for public works for each of the top cities. However for smaller cities that are growing, their websties are difficult to navigate and I've looked for budgets under public works and/or streets and sanitation. For one year, I find a number for streets and sans but another year I can only find public works, making the data wacky. 
+https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pubhtml?gid=1409890218&single=true
+
+I was thinking a few things I can do: 
+
+Create a data visualization for each cities funding over the years:```{r time-series-plot}
+# Plot time series
+ggplot(accidents, aes(x = date, y = total)) +
+  geom_line(alpha = 0.5) +
+  geom_smooth(method = "loess", span = 0.1) +
+  theme_minimal() +
+  labs(title = "Daily Accidents in Prince George's County",
+       x = "Date",
+       y = "Number of Accidents",
+       caption = "Source: Prince George's County Accident Data")
+       
+    Like we did in the last activity^^ 
+    
+  -Calculate a mean and z-scores across all cities and funding
+  ```{r plot-unusual-days}
+# Create a clean factor for the plot legend
+daily_calls <- daily_calls |>
+  mutate(call_volume_type = case_when(
+    z_score > 2 ~ "Unusually High",
+    z_score < -2 ~ "Unusually Low",
+    TRUE ~ "Normal"
+  ))
+
+# Plot with unusual days highlighted
+ggplot(daily_calls, aes(x = date, y = call_count, color = call_volume_type)) +
+  geom_line(color = "gray70") +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("Normal" = "gray50", 
+                               "Unusually High" = "red", 
+                               "Unusually Low" = "blue")) +
+  theme_minimal() +
+  labs(title = "Daily 911 Overdose Calls with Unusual Days Highlighted",
+       subtitle = "Unusual days have z-scores with absolute values > 2",
+       x = "Date",
+       y = "Number of Calls",
+       color = "Call Volume",
+       caption = "Source: Baltimore County 911 Call Data") +
+  scale_y_continuous(labels = comma) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  - Maybe find each population and do funding per capita and do a visualization of who has the lowest and highest funding each year. Compared to the ranks of rattiest city per year. 
+  
