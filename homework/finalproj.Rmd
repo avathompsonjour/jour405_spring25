@@ -4,15 +4,39 @@ output: html_document
 ---
 
 ```{r}
-library(tidyverse)
 
 # Replace with your Google Sheet's public CSV URL
 # (File > Share > Publish to web > CSV)
 url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?output=csv"
 
 # Read directly from the URL
-data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?output=csv")
+rat_ratings <- read_csv(url)
 
 # View the data
 glimpse(data)
+```
+```{r}
+
+citiesurl <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?gid=1409890218&single=true&output=csv"
+
+# Read directly from the URL
+city_funding <- read_csv(citiesurl)
+
+# View the data
+glimpse(data)
+
+```
+```{r explore-data}
+# Get a summary of the data
+glimpse(city_funding)
+
+# Check for any missing values
+colSums(is.na(city_funding))
+
+# Check the date range in our data
+min_funding <- min(city_funding$Year)
+max_funding <- max(city_funding$Year)
+cat("Data ranges from", min_funding, "to", max_funding)
+summary(city_funding)
+
 ```
