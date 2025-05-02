@@ -1,0 +1,11 @@
+Rattiest city rating,2024,2023,2022,2021,2020
+1,"Chicago, Ill.",CHICAGO,Chicago,Chicago,1. Chicago
+2,"Los Angeles, Calif.",LOS ANGELES (+1),New York (+1),Los Angeles (+1),2. Los Angeles
+3,"New York, N.Y.",NEW YORK (-1),Los Angeles (-1),New York (-1),3. New York
+4,"San Francisco, Cali.","WASHINGTON, DC","Washington, D.C.","Washington, D.C.","4. Washington, D.C."
+5,"Washington, D.C.",SAN FRANCISCO,San Francisco,San Francisco,5. San Francisco
+6,"Denver, Colo.",PHILADELPHIA,Philadelphia (+1),Philadelphia,6. Detroit
+7,"Philadelphia, Pa.",BALTIMORE,Baltimore (-1),Baltimore,7. Philadelphia (+3)
+8,"Detroit, Mich.",DENVER,"Cleveland, Oh. (+2)",Denver,8. Baltimore (+4)
+9,"Baltimore, Md.",DETROIT (+1),Detroit (-1),Detroit (+1),9. Denver
+10,"Cleveland, Ohio",CLEVELAND-AKRON (-1),Denver (-1),Cleveland-Akron (-1),10. Minneapolis (-2)
