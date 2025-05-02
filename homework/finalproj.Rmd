@@ -1,0 +1,18 @@
+---
+title: "finalproj"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+
+# Replace with your Google Sheet's public CSV URL
+# (File > Share > Publish to web > CSV)
+url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?output=csv"
+
+# Read directly from the URL
+data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?output=csv")
+
+# View the data
+glimpse(data)
+```
