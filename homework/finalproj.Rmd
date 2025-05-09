@@ -13,7 +13,7 @@ url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAG
 rat_ratings <- read_csv(url)
 
 # View the data
-glimpse(data)
+glimpse(rat_ratings)
 ```
 ```{r}
 
