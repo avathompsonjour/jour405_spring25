@@ -4,39 +4,73 @@ output: html_document
 ---
 
 ```{r}
-
+library(tidyverse)
 # Replace with your Google Sheet's public CSV URL
 # (File > Share > Publish to web > CSV)
-url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?output=csv"
+rankings <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLdemlReTZft5wRLflBLDhULFFOdexE_dd6voqTNTfYe0NOwfvVyCoJ_6WiN_q7rT1yKZ9tNo-xIwW/pub?output=csv"
 
 # Read directly from the URL
-rat_ratings <- read_csv(url)
+rat_ratings <- read_csv(rankings)
 
 # View the data
 glimpse(rat_ratings)
 ```
 ```{r}
 
-citiesurl <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?gid=1409890218&single=true&output=csv"
+cities <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiB6dGOgnjEe27tNq6KEOAGKAy3FpkiLx34EU7Yp-JUrTdYXBotRNpnbgxx8pQtjE8YyIEB2FlNEfo/pub?gid=88512101&single=true&output=csv"
 
 # Read directly from the URL
-city_funding <- read_csv(citiesurl)
+cities <- read_csv(cities)
 
 # View the data
-glimpse(data)
+glimpse(cities)
 
 ```
-```{r explore-data}
-# Get a summary of the data
-glimpse(city_funding)
 
-# Check for any missing values
-colSums(is.na(city_funding))
 
-# Check the date range in our data
-min_funding <- min(city_funding$Year)
-max_funding <- max(city_funding$Year)
-cat("Data ranges from", min_funding, "to", max_funding)
-summary(city_funding)
+
+```{r}
+# Calculate statistics on each year
+city_stat <- city_funding |> 
+  summarise(
+    twentytwentymean = mean(2,020),
+    twentysd = sd(2,020),
+    n = n(),
+    twentytwentymin = min(2,020),
+    twentytwentymax = max(2,020)
+  )
 
 ```
+
+
+```{r}
+# Calculate statistics on each year
+city_stat <- city_funding |> 
+  summarise(
+    twentyonemean = mean(2,021),
+    twentyonesd = sd(2,021),
+    n = n(),
+    twentyonemin = min(2,021),
+    twentyonemax = max(2,021)
+  )
+
+
+```
+
+
+```{r}
+# T-test comparing rankings of two specific cities
+chicago_data <- rankings |> filter(city == "Chicago, Ill.") |> pull(rating)
+newyork_data <- rankings |> filter(city == "New York, N.Y.") |> pull(rating)
+
+t.test(chicago_data, newyork_data, paired = FALSE)
+```
+
+```{r anova-test}
+# Run one-way ANOVA
+anova_result <- aov(year ~ city, data = cities)
+summary(anova_result)
+```
+```
+
+
