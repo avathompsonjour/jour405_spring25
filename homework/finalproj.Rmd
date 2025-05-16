@@ -33,11 +33,11 @@ glimpse(cities)
 # Calculate statistics on each year
 city_stat <- city_funding |> 
   summarise(
-    twentytwentymean = mean(2,020),
-    twentysd = sd(2,020),
+    twentytwentymean = mean(`2,020`),
+    twentysd = sd(`2,020`),
     n = n(),
-    twentytwentymin = min(2,020),
-    twentytwentymax = max(2,020)
+    twentytwentymin = min(`2,020`),
+    twentytwentymax = max(`2,020`)
   )
 
 ```
@@ -47,11 +47,11 @@ city_stat <- city_funding |>
 # Calculate statistics on each year
 city_stat <- city_funding |> 
   summarise(
-    twentyonemean = mean(2,021),
-    twentyonesd = sd(2,021),
+    twentyonemean = mean("2,021"),
+    twentyonesd = sd("2,021"),
     n = n(),
-    twentyonemin = min(2,021),
-    twentyonemax = max(2,021)
+    twentyonemin = min("2,021"),
+    twentyonemax = max("2,021")
   )
 
 
@@ -60,17 +60,29 @@ city_stat <- city_funding |>
 
 ```{r}
 # T-test comparing rankings of two specific cities
-chicago_data <- rankings |> filter(city == "Chicago, Ill.") |> pull(rating)
-newyork_data <- rankings |> filter(city == "New York, N.Y.") |> pull(rating)
+twenty_data <- cities |> filter(year == `2,020`) |> pull(rating)
+twentyone_data <- cities |> filter(year == `2,021`) |> pull(rating)
 
-t.test(chicago_data, newyork_data, paired = FALSE)
+t.test(twenty_data, twentyone_data, paired = FALSE)
 ```
+```{r}
+# T-test comparing rankings of two specific cities
+chicago_data <- rankings |> filter(city == "Chicago, Ill.") |> pull(rating)
+nyc_data <- rankings |> filter(city == "New York City, NY") |> pull(rating)
+
+t.test(chicago_data, nyc_data, paired = FALSE)
+```
+
 
 ```{r anova-test}
 # Run one-way ANOVA
-anova_result <- aov(year ~ city, data = cities)
+anova_result <- aov(year ~ chicago_data, data = cities)
 summary(anova_result)
 ```
+```{r}
+model <- lm(`2,021` ~ `Cities`, data = cityfunding)
+
+summary(model)
 ```
 
-
+Once a year the rats run this city. Pest Control Orkin creates a "rattiest city rating" on which city has the most rats per capita. Chicago has led the charts the past 10 years and New York has always followed. However, rodent control or general sanition funding has a relationship to how major cities are able to control their rodent population. 
